@@ -1,0 +1,93 @@
+{% extends my_template %}
+{% load static %}
+
+{% block MainContent %}
+{% load checker %}
+
+<div class="container">
+    <br>
+    <br>
+    
+    <h1> Allocated Projects </h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <th>No.</th>
+            <th>Project Name</th>
+            <th>Project Details</th>
+            <th>Project Developer</th>
+            <th>Project Tester</th>
+            <th>Project Modules</th>
+            <th>Project Progress</th>
+            
+        </thead>
+        <tbody>
+            {% for i in pata reversed %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.Project_Name }}</td>
+                    <td><textarea disabled style="height: 100px; width: 250px;">{{ i.Project_Detail }}</textarea></td>
+                    <td>{{ i.dev_id }}</td>
+                    <td>{{ i.tset_id }}</td>
+                    <td>{{ i.Project_Modules_need }}</td>
+                    <td>{{ i.Project_Progress }}</td>
+                        {% if i.tester_request != True %}
+                            <script>
+                                myFunction()
+                                function myFunction() {
+                                    var txt;
+                                    if (confirm("New Project Assign to You!")) {
+                                        txt = "You pressed OK!";
+                                        {{ i|change_data_tes }}
+                                    } else {
+                                        txt = "You pressed Cancel!";
+                                    }
+                                }
+                            </script>
+                        {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<br>
+<br>
+<br>
+<h2> Allocated Project Modules </h2>
+    {% for i in mdata reversed %}
+    <div class="row">
+        <div class="card col" style="width: 18rem;">
+            <div class="card-body">
+                <p style="text-align: right;">{{ i.Date }}</p>
+                <h3>{{ i.pd_id.Project_Name }}</h3>
+                <p class="card-text">{{ i.pd_id.Project_Detail }}</p>
+                <h4><b>{{ i.Module_Name }}</b></h4>
+                <h4 class="card-text">{{ i.Module_Detail }}</h4>
+                progress : 
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped active" role="progressbar"
+                        aria-valuenow="{{ i.Progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.Progress }}%">
+                    </div>
+                </div>
+                {% if i.tester_request != True %}
+                    <script>
+                        myFunction1()
+                        function myFunction1() {
+                            var txt;
+                            if (confirm("New Module Assign to You!")) {
+                                txt = "You pressed OK!";
+                                {{ i|change_data_tes }}
+                            } else {
+                                txt = "You pressed Cancel!";
+                            }
+                        }
+                    </script>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    {% endfor %}
+
+</div>
+{% endblock MainContent %}

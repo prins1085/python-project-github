@@ -1,0 +1,57 @@
+<a href="{% url 'addprojecttype' %}">Add Project_type</a><br>
+<a href="{% url 'addproject' %}">Add Project</a>
+
+
+
+{% if pt %}
+    <table border="2">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Type Name</th>
+                <th>Type Details</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in pt reversed %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.Type_name }}</td>
+                    <td>{{ i.Type_Details }}</td>
+                    <td><a href="#">Update</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+    
+<h1>Allocated Projects</h1>
+{% if pd %}
+    <table border="2">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Project Name</th>
+                <th>Project Details</th>
+                <th>Project Manager</th>
+                <th>Project Date</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in pd reversed %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.Project_Name }}</td>
+                    <td>{{ i.Project_Detail }}</td>
+                    <td>{{ i.Pm_id }}</td>
+                    <td>{{ i.Date }}</td>
+                    <td><a href="#">Update</a></td>
+                    <td><a href="#">Delete</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

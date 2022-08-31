@@ -1,0 +1,25 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+<div class="container">
+    <br>
+    <br>
+    <h2> All Projects </h2><br><br>
+    <div class="card-columns">
+        {% for i in pd %}
+            <div class="card border-primary mb-3" style="max-width: 18rem;">
+                <div class="card-header bg-transparent border-secondary"><h3>{{ i.Project_Name }}</h3></div>
+                <div class="card-body text-dark">
+                <h4 class="card-text">{{ i.Project_Detail }}</h4>
+                </div>
+                <div class="card-footer bg-transparent border-info">
+                    <a href="{% url 'Admin_Report' i.id %}">View Report</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+{% endblock MainContent %}
+
+
+

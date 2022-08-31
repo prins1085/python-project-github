@@ -1,0 +1,76 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+
+<div class="container">
+    <br>
+    <h2><strong><u><i> Project Name : {{ mdata.pd_id.Project_Name }} </i></u></strong></h2>
+    <br>
+    <h3><strong><u><i> Module Name : {{ mdata.Module_Name }} </i></u></strong></h3><br><br>
+    
+    {% if mc %}
+    <div style="height: 500px; width: 100%; overflow: scroll;">
+        {% for i in mc %}
+            <div class="row">
+                {% if i.tset %}
+                    <div class="card col-6" style="width: 15rem;">
+                        <div class="card-body">
+                            <p><b><u>Tester : {{ i.tset }}</u></b></p>
+                            <h3 class="card-text">{{ i.problem_text }}</h3>
+                            {% if i.chat_doc %}
+                                <object data="{{ i.chat_doc.url }}" type="application/pdf,.zip,.rar,.7zip" width="150" height="200">
+                                    <a target="_blank" href="{{ i.chat_doc.url }}">File</a>
+                                </object>
+                            {% endif %}
+                            <p style="text-align: right;">{{ i.date_time }}</p>
+                        </div>
+                    </div>
+                {% endif %}      
+            </div>
+            <div class="row">
+                {% if i.devl %}
+                    <div class="col-6" style="width: 15rem;">
+                        
+                    </div>
+                    <div class="card col-6" style="width: 15rem;">
+                        <div class="card-body">
+                            <p><b><u>Developer : {{ i.devl }}</u></b></p>
+                            <h3 class="card-text">{{ i.problem_text }}</h3>
+                            {% if i.chat_doc %}
+                                <object data="{{ i.chat_doc.url }}" type="application/pdf,.zip,.rar,.7zip" width="150" height="200">
+                                    <a target="_blank" href="{{ i.chat_doc.url }}">File</a>
+                                </object>
+                            {% endif %}
+                            <p style="text-align: right;">{{ i.date_time }}</p>
+                        </div>
+                    </div>
+                {% endif %}  
+            </div>
+        {% endfor %}  
+    </div>
+    {% endif %}
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title"></h4>
+                <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Add Answer</label>
+                    <textarea class="form-control" name="ptext" id="exampleTextarea1" rows="2"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="file" name="zfile" accept=".zip,.rar,.7zip,application/pdf"><p>(Optional)</p>
+                  </div>
+                  <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit">
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock MainContent %}

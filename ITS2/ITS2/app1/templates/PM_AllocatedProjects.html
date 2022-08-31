@@ -1,0 +1,39 @@
+{% extends my_template %}
+{% load static %}
+
+{% block MainContent %}
+    
+<div class="container">
+    <br>
+    <br>
+
+    <h1> Allocated Projects </h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <th>No.</th>
+            <th>Project Name</th>
+            <th>Project Details</th>
+            <th>Project Developer</th>
+            <th>Project Tester</th>
+            <th>Project Modules</th>
+            <th>Project Progress</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {% for i in pdata %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.Project_Name }}</td>
+                    <td><textarea disabled style="height: 100px; width: 250px;">{{ i.Project_Detail }}</textarea></td>
+                    <td>{{ i.dev_id }}</td>
+                    <td>{{ i.tset_id }}</td>
+                    <td>{{ i.Project_Modules_need }}</td>
+                    <td>{{ i.Project_Progress }}</td>
+                    <td><a href="{% url 'updateproject' i.id %}" class="btn btn-info">Update</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+{% endblock MainContent %}

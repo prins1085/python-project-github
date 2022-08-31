@@ -1,0 +1,297 @@
+{% load checker %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            /* reset */
+      
+      * {
+          border: 0;
+          box-sizing: content-box;
+          color: inherit;
+          font-family: inherit;
+          font-size: inherit;
+          font-style: inherit;
+          font-weight: inherit;
+          line-height: inherit;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          text-decoration: none;
+          vertical-align: top;
+        }
+        
+        /* content editable */
+        
+        *[contenteditable] {
+          border-radius: 0.25em;
+          min-width: 1em;
+          outline: 0;
+        }
+        
+        *[contenteditable] {
+          cursor: pointer;
+        }
+        
+        *[contenteditable]:hover,
+        *[contenteditable]:focus,
+        td:hover *[contenteditable],
+        td:focus *[contenteditable],
+        img.hover {
+          background: #def;
+          box-shadow: 0 0 1em 0.5em #def;
+        }
+        
+        span[contenteditable] {
+          display: inline-block;
+        }
+        
+        
+        /* table */
+        
+        table {
+          font-size: 75%;
+          table-layout: fixed;
+          width: 100%;
+        }
+        table {
+          border-collapse: separate;
+          border-spacing: 2px;
+        }
+        th,
+        td {
+          border-width: 1px;
+          padding: 0.5em;
+          position: relative;
+          text-align: left;
+        }
+        th,
+        td {
+          border-radius: 0.25em;
+          border-style: solid;
+        }
+        th {
+          background: #eee;
+          border-color: #bbb;
+        }
+        td {
+          border-color: #ddd;
+        }
+        
+        /* page */
+        
+        html {
+          font: 16px/1 "Open Sans", sans-serif;
+          overflow: auto;
+          padding: 0.5in;
+        }
+        html {
+          background: #999;
+          cursor: default;
+        }
+        
+        
+        
+        /* header */
+        
+        header {
+          margin: 0 0 3em;
+        }
+        header:after {
+          clear: both;
+          content: "";
+          display: table;
+        }
+        
+        header h1 {
+          background: #000;
+          border-radius: 0.25em;
+          color: #fff;
+          margin: 0 0 1em;
+          padding: 0.5em 0;
+        }
+        header address {
+          float: left;
+          font-size: 75%;
+          font-style: normal;
+          line-height: 1.25;
+          margin: 0 1em 1em 0;
+        }
+        header address p {
+          margin: 0 0 0.25em;
+        }
+        header span,
+        header img {
+          display: block;
+          float: right;
+        }
+        header span {
+          margin: 0 0 1em 1em;
+          max-height: 25%;
+          max-width: 60%;
+          position: relative;
+        }
+        header img {
+          max-height: 100%;
+          max-width: 100%;
+        }
+        header input {
+          cursor: pointer;
+          -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+          height: 100%;
+          left: 0;
+          opacity: 0;
+          position: absolute;
+          top: 0;
+          width: 100%;
+        }
+        
+        /* article */
+        
+        article,
+        article address,
+        table.meta,
+        table.inventory {
+          margin: 0 0 3em;
+        }
+        article:after {
+          clear: both;
+          content: "";
+          display: table;
+        }
+        article h1 {
+          clip: rect(0 0 0 0);
+          position: absolute;
+        }
+        
+        article address {
+          float: left;
+          font-size: 125%;
+          font-weight: bold;
+        }
+        
+        /* table meta & balance */
+        
+        table.meta,
+        table.balance {
+          float: right;
+          width: 36%;
+        }
+        table.meta:after,
+        table.balance:after {
+          clear: both;
+          content: "";
+          display: table;
+        }
+        
+        /* table meta */
+        
+        table.meta th {
+          width: 40%;
+        }
+        table.meta td {
+          width: 60%;
+        }
+        
+        /* table items */
+        
+        table.inventory {
+          clear: both;
+          width: 100%;
+        }
+        table.inventory th {
+          font-weight: bold;
+          text-align: center;
+        }
+        
+        table.inventory td:nth-child(1) {
+          width: 26%;
+        }
+        table.inventory td:nth-child(2) {
+          width: 38%;
+        }
+        table.inventory td:nth-child(3) {
+          text-align: right;
+          width: 12%;
+        }
+        table.inventory td:nth-child(4) {
+          text-align: right;
+          width: 12%;
+        }
+        table.inventory td:nth-child(5) {
+          text-align: right;
+          width: 12%;
+        }
+        
+        /* table balance */
+        
+        table.balance th,
+        table.balance td {
+          width: 50%;
+        }
+        table.balance td {
+          text-align: right;
+        }
+      
+        </style>
+    </head>
+    <body>
+        <div style="background-color: black; color: azure;">
+            <h2 style="padding-top: 10px; padding-bottom: 10px; text-align: center; font-size: 30px;"> Project Report</h2>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p style="text-align: right;">{{ pd.Date }}</p>
+                <h2>Project Name : {{ pd.Project_Name }}</h2>
+                <h3>Project Type : {{ pd.Pt_id.Type_name }}</h3>
+                <h3>Project Details : {{ pd.Project_Detail }}</h3>
+                <h3>Project Total Modules : {{ pd.Project_Modules_need }}</h3>
+                <h3>Project Progress : {{ pd|check_progress }}</h3>
+                
+                <br>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">Project Manager</th>
+                                <th style="text-align: left;">Project Developer</th>
+                                <th style="text-align: left;">Project Tester</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p> name : {{ pd.Pm_id.Name }}</p>
+                                    <p> no : {{ pd.Pm_id.Mno }} </p>
+                                    <p> email : {{ pd.Pm_id.Email }} </p>
+                                </td>
+                                <td>
+                                    <p> name : {{ pd.dev_id.Name }}</p>
+                                    <p> no : {{ pd.dev_id.Mno }} </p>
+                                    <p> email : {{ pd.dev_id.Email }} </p>
+                                </td>
+                                <td>
+                                    <p> name : {{ pd.tset_id.Name }} </p>
+                                    <p> no : {{ pd.tset_id.Mno }} </p>
+                                    <p> email : {{ pd.tset_id.Email }} </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+
+            {% for i in pm %}
+            <h2>{{ i.Module_Name }} : </h2> 
+                    
+            <b>details :</b> {{ i.Module_Detail }}&nbsp;&nbsp;<br>
+            <b>progress done :</b> {{ i.Progress }}% Done&nbsp;&nbsp;
+            <hr>
+            {% endfor %}
+        
+        </div>
+    </body>
+</html>

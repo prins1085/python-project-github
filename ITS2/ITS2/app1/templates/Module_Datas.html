@@ -1,0 +1,61 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+
+<div class="container">
+    <br>
+    <br>
+
+    <h2> Modules </h2>
+    {% for i in mdata reversed %}    
+        {% if tes_nm %}<div class="row">
+                <div class="card col" style="width: 18rem;">
+                    <div class="card-body">
+                        <p style="text-align: right;">{{ i.Date }}</p>
+                        <h4><b>{{ i.Module_Name }}</b></h4>
+                        <h4 class="card-text">{{ i.Module_Detail }}</h4>
+                        progress : 
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                aria-valuenow="{{ i.Progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.Progress }}%">
+                            </div>
+                        </div>
+                        <br>
+                        <p style="text-align: right;"><a class="btn btn-info" href="{% url 'Modules_process' i.id %}">Update</a></p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        {% else %}
+            <div class="row">
+                <div class="card col" style="width: 18rem;">
+                    <div class="card-body">
+                        <p style="text-align: right;">{{ i.Date }}</p>
+                        <h3>{{ i.pd_id.Project_Name }}</h3>
+                        <p class="card-text">{{ i.pd_id.Project_Detail }}</p>
+                        <h4><b>{{ i.Module_Name }}</b></h4>
+                        <h4 class="card-text">{{ i.Module_Detail }}</h4>
+                        progress : 
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                aria-valuenow="{{ i.Progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.Progress }}%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+        {% endif %}
+        
+    {% endfor %}
+
+    {% for i in mdata reversed %}
+    
+    {% endfor %}
+
+
+
+</div>
+{% endblock MainContent %}

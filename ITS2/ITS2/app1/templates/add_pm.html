@@ -1,0 +1,53 @@
+{% extends 'adminbase.html' %}
+{% load static %}
+{% block MainContent %}
+
+<div class="container">
+    <br>
+    <br>
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add project manager</h4>
+                    <form class="forms-sample" method="POST">
+                        {% csrf_token %}
+                      <div class="form-group">
+                        <label for="exampleInputName1">Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" name="sname" placeholder="Enter Your Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Email address</label>
+                        <input type="email" class="form-control" id="exampleInputEmail3" name="semail" placeholder="Enter Your Email">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleFormControlSelect1">Gender</label>
+                        <select name='sgen' class="form-control form-control-lg" id="exampleFormControlSelect1">
+                            <option value="0">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputName1">Mobile No.</label>
+                        <input type="text" name="sno" placeholder="Enter Your No." class="form-control" id="exampleInputName1">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleTextarea1">Address</label>
+                        <textarea class="form-control"name="saddress" id="exampleTextarea1" rows="2"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputPassword4">Password</label>
+                        <input type="password" class="form-control" name="spass" id="exampleInputPassword4" placeholder="Password">
+                      </div>
+                      <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit">
+                    </form>
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+{% endblock MainContent %}
+
+
+

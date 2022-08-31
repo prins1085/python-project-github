@@ -1,0 +1,30 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+<div class="container">
+    <br>
+    <br>
+
+    <h1><a href="{% url 'AddQuestion' %}">Add Question</a></h1>
+
+    <h1>All Questions</h1>
+    <br>
+    {% for i in sofq reversed %}
+        <hr>
+        {% if i.pmanage %}
+            <p><b><u> Project Manager : {{ i.pmanage }} </u></b></p>
+            <p>{{ i.date_add }}</p>
+        {% elif i.devl %}
+            <p><b><u> Developer : {{ i.devl }} </u></p>
+            <p>{{ i.date_add }}</p>
+        {% elif i.tset %}
+            <p><b><u> Tester : {{ i.tset }} </u></b></p>
+            <p>{{ i.date_add }}</p>
+        {% endif %}
+        
+        <h3>{{ forloop.counter }}. &nbsp; <a href="{% url 'Answers_data' i.id %}">{{ i }}</a></h3>
+        
+        <hr>
+    {% endfor %}
+</div>
+{% endblock MainContent %}

@@ -1,0 +1,37 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+
+<div class="container">
+    <br>
+    <br>
+
+    <h1> Module Process </h1>
+    <form method="POST">{% csrf_token %}
+        <div class="row">
+            <div class="card col" style="width: 18rem;">
+                <div class="card-body">
+                    <p style="text-align: right;">{{ mdata.Date }}</p>
+                    <h3>{{ mdata.pd_id.Project_Name }}</h3>
+                    <p class="card-text">{{ mdata.pd_id.Project_Detail }}</p>
+                    <h4><b>{{ mdata.Module_Name }}</b></h4>
+                    <h4 class="card-text">{{ mdata.Module_Detail }}</h4>
+                    progress : 
+                        <select name="proc" class="form-control">
+                            <option value="25" {% if mdata.Progress == 25 %} selected {% endif %}>25%</option>
+                            <option value="50" {% if mdata.Progress == 50 %} selected {% endif %}>50%</option>
+                            <option value="75" {% if mdata.Progress == 75 %} selected {% endif %}>75%</option>
+                            <option value="100" {% if mdata.Progress == 100 %} selected {% endif %}>100%</option>
+                        </select>
+                        <br>
+                    </div>
+                    <input type="submit" class="btn btn-success" value="Update Process">
+                    <br>
+                </div>
+            </div>
+        </div>
+        
+    </form>
+
+</div>
+{% endblock MainContent %}

@@ -1,0 +1,83 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+<div class="container">
+    <br>
+    <br>
+
+    <h1>{{ sofq.Question }}</h1>
+    <h3>{{ sofq.date_add }}</h3>
+
+    <h1>All Answers</h1>
+    <br>
+
+    <div style="height: 600px; overflow: scroll;">
+        {% if sofA %}
+            {% for i in sofA reversed %}
+            <hr>
+                {% if i.pmanage %}
+                    <p style="text-align: right;"><b><u> project manager : {{ i.pmanage }} </u></b></p>
+                    <p style="text-align: right;">{{ i.date_add }}</p>
+                {% elif i.devl %}
+                    <p style="text-align: right;"><b><u> developer : {{ i.devl }} </u></b></p>
+                    <p style="text-align: right;">{{ i.date_add }}</p>
+                {% elif i.tset %}
+                    <p style="text-align: right;"><b><u> tester : {{ i.tset }} </u></b></p>
+                    <p style="text-align: right;">{{ i.date_add }}</p>
+                {% endif %}
+                    
+                <h3>({{ forloop.counter }}) &nbsp; {{ i.Answer }}</h3>
+                
+                {% if i.Answer_doc %}
+                    <object data="{{ i.Answer_doc.url }}" type="application/pdf" width="150" height="200">
+                        <a target="_blank" href="{{ i.Answer_doc.url }}">File</a>
+                    </object>
+                {% endif %}
+                    
+                <hr>
+                <br>
+            {% endfor %}
+        {% else %}
+            <h1>No Answers</h1>
+        {% endif %}
+    </div>
+        <br>
+        <br>
+        <br>
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title"> Enter Your Answer </h4>
+                <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% if pm_nm %}
+                        <input type="hidden" name="user_type" value="pmnm">
+                        <input type="hidden" name="user" value="{{ pm_nm.id }}">
+                    {% elif dev_nm %}
+                        <input type="hidden" name="user_type" value="devnm">
+                        <input type="hidden" name="user" value="{{ dev_nm.id }}">
+                    {% elif tes_nm %}
+                        <input type="hidden" name="user_type" value="tesnm">
+                        <input type="hidden" name="user" value="{{ tes_nm.id }}">
+                    {% endif %}
+                    <input type="hidden" name="que" value="{{ sofq.id }}">
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Add Answer</label>
+                    <textarea class="form-control" name="answer" id="exampleTextarea1" rows="2"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input class="form-control" type="file" name="ansfile"><p>(Optional)</p>
+                  </div>
+                  <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit">
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+    <br>
+    <br>
+    <br>
+</div>
+{% endblock MainContent %}

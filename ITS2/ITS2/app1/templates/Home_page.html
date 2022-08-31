@@ -1,0 +1,33 @@
+{% load static %}
+
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+  </head>
+  <body>
+    <div class="dropdown" style="display: inline-block;">
+        <button class="dropbtn">Login</button>
+        <div class="dropdown-content">
+          <a href="{% url 'adminlogin' %}">Admin</a>
+          <a href="{% url 'spm_log' %}">Staff Login</a>
+
+          {% comment %}
+          <a href="{% url 'sdev_log' %}">Developer</a>
+          <a href="{% url 'stest_log' %}">Tester</a>
+          {% endcomment %}
+        </div>
+    </div>
+
+    <center>
+    <img  src="{% static 'img/IST.jpg' %}" width="1500px" height="800px"></center>
+  </body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,70 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+
+<div class="container">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title">Update Project Details</h4>
+                <form class="forms-sample" method="POST"> 
+                    {% csrf_token %} 
+                    <div class="form-group">
+                        <label for="exampleInputName1">Project Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" name="pname" value="{{ key.Project_Name }}" placeholder="Enter Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail3">Project Details</label>
+                        <textarea class="form-control" id="exampleTextarea1" name="pdetail" rows="2">{{ key.Project_Detail }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputName1">Project Modules Need</label>
+                        <input type="text" class="form-control" id="exampleInputName1" name="pmneed" value="{{ key.Project_Modules_need }}" placeholder="Project Modules Need">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Project Type</label>
+                        <select class="form-control form-control-lg" name='ptype' id="exampleFormControlSelect1">
+                            {% for i in pt %}
+                                <option value="{{ i.id }}" {% if i == key.Pt_id %} selected {% endif %}>{{ i.Type_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">Select Project Manager</label>
+                        <select class="form-control" name='pms' id="exampleFormControlSelect2">
+                            <option>Select Project Manager</option>
+                        {% for i in pm %}
+                            <option value="{{ i.id }}" {% if i == key.Pm_id %} selected {% endif %}>{{ i.Name }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Project Developer</label>
+                        <select class="form-control form-control-lg" name='devs' id="exampleFormControlSelect1">
+                            <option value="none">Select Developer</option>
+                            {% for i in Devs %}
+                                <option value="{{ i.id }}" {% if i == key.dev_id %} selected {% endif %}>{{ i.Name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2"> Project Tester</label>
+                        <select class="form-control" name='tess' id="exampleFormControlSelect2">
+                            <option value="none">Select Tester</option>
+                        {% for i in Tess %}
+                            <option value="{{ i.id }}" {% if i == key.tset_id %} selected {% endif %}>{{ i.Name }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                    
+                  <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit"><br>
+                </form>
+              </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock MainContent %}

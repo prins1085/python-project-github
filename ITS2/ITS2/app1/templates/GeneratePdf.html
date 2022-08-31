@@ -1,0 +1,405 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Invoice</title>
+  <style>
+      /* reset */
+
+* {
+    border: 0;
+    box-sizing: content-box;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    vertical-align: top;
+  }
+  
+  /* content editable */
+  
+  *[contenteditable] {
+    border-radius: 0.25em;
+    min-width: 1em;
+    outline: 0;
+  }
+  
+  *[contenteditable] {
+    cursor: pointer;
+  }
+  
+  *[contenteditable]:hover,
+  *[contenteditable]:focus,
+  td:hover *[contenteditable],
+  td:focus *[contenteditable],
+  img.hover {
+    background: #def;
+    box-shadow: 0 0 1em 0.5em #def;
+  }
+  
+  span[contenteditable] {
+    display: inline-block;
+  }
+  
+  
+  /* table */
+  
+  table {
+    font-size: 75%;
+    table-layout: fixed;
+    width: 100%;
+  }
+  table {
+    border-collapse: separate;
+    border-spacing: 2px;
+  }
+  th,
+  td {
+    border-width: 1px;
+    padding: 0.5em;
+    position: relative;
+    text-align: left;
+  }
+  th,
+  td {
+    border-radius: 0.25em;
+    border-style: solid;
+  }
+  th {
+    background: #eee;
+    border-color: #bbb;
+  }
+  td {
+    border-color: #ddd;
+  }
+  
+  /* page */
+  
+  html {
+    font: 16px/1 "Open Sans", sans-serif;
+    overflow: auto;
+    padding: 0.5in;
+  }
+  html {
+    background: #999;
+    cursor: default;
+  }
+  
+  
+  
+  /* header */
+  
+  header {
+    margin: 0 0 3em;
+  }
+  header:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  
+  header h1 {
+    background: #000;
+    border-radius: 0.25em;
+    color: #fff;
+    margin: 0 0 1em;
+    padding: 0.5em 0;
+  }
+  header address {
+    float: left;
+    font-size: 75%;
+    font-style: normal;
+    line-height: 1.25;
+    margin: 0 1em 1em 0;
+  }
+  header address p {
+    margin: 0 0 0.25em;
+  }
+  header span,
+  header img {
+    display: block;
+    float: right;
+  }
+  header span {
+    margin: 0 0 1em 1em;
+    max-height: 25%;
+    max-width: 60%;
+    position: relative;
+  }
+  header img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+  header input {
+    cursor: pointer;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  
+  /* article */
+  
+  article,
+  article address,
+  table.meta,
+  table.inventory {
+    margin: 0 0 3em;
+  }
+  article:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  article h1 {
+    clip: rect(0 0 0 0);
+    position: absolute;
+  }
+  
+  article address {
+    float: left;
+    font-size: 125%;
+    font-weight: bold;
+  }
+  
+  /* table meta & balance */
+  
+  table.meta,
+  table.balance {
+    float: right;
+    width: 36%;
+  }
+  table.meta:after,
+  table.balance:after {
+    clear: both;
+    content: "";
+    display: table;
+  }
+  
+  /* table meta */
+  
+  table.meta th {
+    width: 40%;
+  }
+  table.meta td {
+    width: 60%;
+  }
+  
+  /* table items */
+  
+  table.inventory {
+    clear: both;
+    width: 100%;
+  }
+  table.inventory th {
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  table.inventory td:nth-child(1) {
+    width: 26%;
+  }
+  table.inventory td:nth-child(2) {
+    width: 38%;
+  }
+  table.inventory td:nth-child(3) {
+    text-align: right;
+    width: 12%;
+  }
+  table.inventory td:nth-child(4) {
+    text-align: right;
+    width: 12%;
+  }
+  table.inventory td:nth-child(5) {
+    text-align: right;
+    width: 12%;
+  }
+  
+  /* table balance */
+  
+  table.balance th,
+  table.balance td {
+    width: 50%;
+  }
+  table.balance td {
+    text-align: right;
+  }
+
+  </style>
+</head>
+
+<body style="box-sizing: border-box;  margin: 0 auto; overflow: hidden; padding: 0.5in; width: 8.5in; box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5); background: #fff; border-radius: 1px;">
+  <header>
+    <h1 style="text-align: center; background-color: #000;">Invoice</h1>
+    <address contenteditable>
+      <p>{{ org.full_name }}</p>
+      <p>{{ org.address_1 }},{{ org.address_1 }},<br>{{ org.city }}, {{ org.state }} - {{ org.pincode }}</p>
+      <p>{{org.phone}}</p>
+      <p>{{ org.email }}</p>
+    </address>
+    <span><img alt="" src="http://www.jonathantneal.com/examples/invoice/logo.png"><input type="file" accept="image/*"></span>
+  </header>
+  <article>
+    <h1>Recipient</h1>
+    <address contenteditable>
+      <p>{{ cust.cust_name }}<br>{{ cust.address }}</p>
+      <p>{{ cust.contact_num }}</p>
+    </address>
+    <table class="meta">
+      <tr>
+        <th><span contenteditable>Invoice No.</span></th>
+        <td><span contenteditable>{{ invo.Invoice_num }}</span></td>
+      </tr>
+      <tr>
+        <th><span contenteditable>Invoice Type</span></th>
+        <td><span contenteditable>{{ invo.Invoice_type }}</span></td>
+      </tr>
+      <tr>
+        <th><span contenteditable>Date</span></th>
+        <td><span contenteditable>{{ invo.Date }}</span></td>
+      </tr>
+      <tr>
+        <th><span contenteditable>Dispatch Through</span></th>
+        <td><span contenteditable>{{ invo.Dispatch_through }}</span></td>
+      </tr>
+      <tr>
+        <th><span contenteditable>Due Date</span></th>
+        <td><span contenteditable>{{ invo.Due_date }}</span></td>
+      </tr>
+    </table>
+    <table class="inventory">
+      <thead>
+        <tr>
+          <th colspan="3"><span contenteditable>Product Name</span></th>
+          <th><span contenteditable>HSN Code</span></th>
+          <th><span contenteditable>Quantity</span></th>
+          <th><span contenteditable>Price</span></th>
+          <th><span contenteditable>Discount</span></th>
+          <th><span contenteditable>Cgst</span></th>
+          <th><span contenteditable>Sgst</span></th>
+          <th><span contenteditable>Igst</span></th>
+          <th><span contenteditable>Cess</span></th>
+          <th><span contenteditable>Total</span></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for i in prod %}
+      <tr>
+          <td colspan="3">{{ i.Product_name }}</td>
+          <td>{{ i.Hsn_code }}</td>
+          <td>{{ i.Qty }}</td>
+          <td>{{ i.Price }}</td>
+          <td>{{ i.Discount }}</td>
+          <td>{{ i.Cgst }}</td>
+          <td>{{ i.Sgst }}</td>
+          <td>{{ i.Igst }}</td>
+          <td>{{ i.Cess }}</td>
+          <td>{{ i.Total }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <table class="balance">
+      <tr>
+        <th><span contenteditable>Final Total</span></th>
+        <td><h2>{{ tot }}</h2></td>
+      </tr>
+    </table>
+  </article>
+  <aside>
+    <h3><span contenteditable>Bank Name :</span></h3>
+    <div contenteditable>
+      <p>{{ invo.Bank }}</p>
+    </div>
+  </aside>
+  <aside>
+    <h3><span contenteditable>Terms & Condition :</span></h3>
+    <div contenteditable>
+      <p>{{ invo.T_c }}</p>
+    </div>
+  </aside>
+  <aside>
+    <h3><span contenteditable>Payment Notes :</span></h3>
+    <div contenteditable>
+      <p>{{ invo.Payment_note }}</p>
+    </div>
+  </aside>
+  <aside>
+    <h3><span contenteditable>Additional Notes</span></h3>
+    <div contenteditable>
+      <p>{{ invo.Document_note }}</p>
+    </div>
+  </aside>
+</body>
+
+</html>
+
+
+<!-- 
+<p>Customer Name : {{ cust.cust_name }}</p>
+<p>Customer Address : {{ cust.address }} </p>
+<p>Customer No. : {{ cust.contact_num }}</p> -->
+
+<!-- <p>Invoice Type :{{ invo.Invoice_type }}</p>
+<p>Invoice No. :{{ invo.Invoice_num }}</p>
+<p>Invoice Date :{{ invo.Date }}</p>
+<p>Invoice Dispatch_through :{{ invo.Dispatch_through }}</p>
+<p>Invoice Due_date :{{ invo.Due_date }}</p>
+<p>Invoice Bank :{{ invo.Bank }}</p>
+<p>Invoice Payment_type :{{ invo.Payment_type }}</p>
+<p>Invoice Payment_note :{{ invo.Payment_note }}</p>
+<p>Invoice T_c :{{ invo.T_c }}</p>
+<p>Invoice Document_note :{{ invo.Document_note }}</p> -->
+
+
+<!-- 
+<table border="2">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Hsn_code</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Discount</th>
+            <th>Cgst</th>
+            <th>Sgst</th>
+            <th>Igst</th>
+            <th>Cess</th>
+            <th>Total</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in prod %}
+        <tr>
+            <td>{{ i.Product_name }}</td>
+            <td>{{ i.Hsn_code }}</td>
+            <td>{{ i.Qty }}</td>
+            <td>{{ i.Price }}</td>
+            <td>{{ i.Discount }}</td>
+            <td>{{ i.Cgst }}</td>
+            <td>{{ i.Sgst }}</td>
+            <td>{{ i.Igst }}</td>
+            <td>{{ i.Cess }}</td>
+            <td>{{ i.Total }}</td>
+            <td><a href="{% url 'ProdUp' i.id %}">Update</a></td>
+            <td><a href="{% url 'ProdDel' i.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="9">Grand Total</td>
+            <td>{{ tot }}</td>
+        </tr>
+    </tbody>
+</table>
+ -->

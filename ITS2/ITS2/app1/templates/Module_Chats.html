@@ -1,0 +1,16 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+
+<div class="container">
+    <br>
+    <br>
+
+<h1>developer Chats</h1>
+<h2>Module's Data</h2>
+{% for i in mdata %}
+    <h2><a href="{% url 'Chat_Data_Show' i.id %}">{{ i }}</a></h2><br>
+{% endfor %}
+
+</div>
+{% endblock MainContent %}

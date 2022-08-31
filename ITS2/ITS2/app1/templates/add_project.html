@@ -1,0 +1,117 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+
+<div class="container">
+    <br>
+    <br>
+        
+        {% if key %}
+            <!-- <h1>Update Project Details</h1>
+            <form method="POST">
+                {% csrf_token %}
+                project_name:-<input type="text" name="pname" value="{{ key.Project_Name }}" disabled><br>
+                Project_Detail:-<textarea name="pdetail" disabled>{{ key.Project_Detail }}</textarea><br>
+                Project_Modules_need:-<input type="text" name="pmneed" value="{{ key.Project_Modules_need }}"><br>
+                Project_Developer:-
+                <select name="Devs">
+                    {% for d in dev %}
+                        <option value="{{ d.id }}">{{ d.Name }}</option>
+                    {% endfor %}
+                </select><br>
+                Project_Tester:-
+                <select name="Tess">
+                    {% for t in tes %}
+                        <option value="{{ t.id }}">{{ t.Name }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <input type="Submit" value="Submit" name="Submit"><br>
+            </form> -->
+
+            <div class="row">
+                <div class="col-md-6 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Update Project Details</h4>
+                        <form class="forms-sample" method="POST"> 
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="exampleInputName1">Project Name</label>
+                                <input type="text" class="form-control" id="exampleInputName1" name="pname" value="{{ key.Project_Name }}" disabled placeholder="Enter Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail3">Project Details</label>
+                                <textarea class="form-control" id="exampleTextarea1" name="pdetail" rows="2">{{ key.Project_Detail }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName1">Project Modules Need</label>
+                                <input type="text" class="form-control" id="exampleInputName1" name="pmneed" value="{{ key.Project_Modules_need }}" placeholder="Enter Modules Need">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Project Developer</label>
+                                <select class="form-control form-control-lg" name='Devs' id="exampleFormControlSelect1">
+                                    {% for d in dev %}
+                                        <option value="{{ d.id }}" {% if key.dev_id == d %} selected {% endif %} >{{ d.Name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect2">Project Tester</label>
+                                <select class="form-control" name='Tess' id="exampleFormControlSelect2">
+                                    {% for t in tes %}
+                                        <option value="{{ t.id }}" {% if t == key.tset_id %} selected {% endif %}>{{ t.Name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                          <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit"><br>
+                        </form>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body">
+                    <h4 class="card-title">Add Project</h4>
+                    <form class="forms-sample" method="POST"> 
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Project Type</label>
+                            <select class="form-control form-control-lg" name='ptype' id="exampleFormControlSelect1">
+                                {% for i in pt %}
+                                    <option value="{{ i.id }}">{{ i.Type_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect2">Select Project Manager</label>
+                            <select class="form-control" name='pms' id="exampleFormControlSelect2">
+                            {% for i in pm %}
+                                <option value="{{ i.id }}">{{ i.Name }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                        
+                      <div class="form-group">
+                        <label for="exampleInputName1">Project Name</label>
+                        <input type="text" class="form-control" id="exampleInputName1" name="pname" placeholder="Enter Name">
+                      </div>
+                      <div class="form-group">
+                        <label for="exampleInputEmail3">Project Details</label>
+                        <textarea class="form-control" id="exampleTextarea1" name="pdetail" rows="2"></textarea>
+                      </div>
+                      <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit"><br>
+                    </form>
+                  </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+    </div>
+{% endblock MainContent %}
+
+

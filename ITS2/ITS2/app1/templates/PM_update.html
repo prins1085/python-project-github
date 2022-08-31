@@ -1,0 +1,63 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+
+<div class="container">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title"> Project Manager Update Form </h4>
+                <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                  <div class="form-group">
+                    <label for="exampleInputName1">Name</label>
+                    <input type="text" class="form-control" id="exampleInputName1" name="sname" value="{{ data.Name }}" placeholder="Enter Your Name">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail3">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail3" name="semail" value="{{ data.Email }}" placeholder="Enter Your Email">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlSelect1">Gender</label>
+                    <select name='sgen' value="{{ data.Gender }}" class="form-control form-control-lg" id="exampleFormControlSelect1">
+                        <option value="0">Select Gender</option>
+                        <option value="Male" {% ifequal data.Gender "Male" %} selected {% endifequal %}>Male</option>
+                        <option value="Female" {% ifequal data.Gender "Female" %} selected {% endifequal %}>Female</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputName1">Mobile No.</label>
+                    <input type="number" name="sno" value="{{ data.Mno }}" placeholder="Enter Your No." class="form-control" id="exampleInputName1">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Address</label>
+                    <textarea class="form-control" name="saddress" id="exampleTextarea1" rows="2"> {{ data.Address }} </textarea>
+                  </div>
+                  {% if key == 1 %}
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Profile Pic</label>
+                    
+                    
+                      {% if data.profile_pic %}
+                          <img src="{{ data.profile_pic.url }}" width="200px">
+                      {% endif %}
+                    
+                      
+                    <input type="file" class="form-control"  accept="image/x-png,image/gif,image/jpeg" name="pic">
+                  </div>
+                  {% endif %}
+                  <div class="form-group">
+                    <label for="exampleInputPassword4">Password</label>
+                    <input type="text" class="form-control" name="spass" value="{{ data.Password }}" id="exampleInputPassword4" placeholder="Password">
+                  </div>
+                  <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit">
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+    </div>
+{% endblock MainContent %}

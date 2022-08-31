@@ -1,0 +1,36 @@
+{% extends my_template %}
+{% load static %}
+{% block MainContent %}
+<div class="container">
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="card-title"> Add Question </h4>
+                <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    {% if pm_nm %}
+                        <input type="hidden" name="user_type" value="pmnm">
+                        <input type="hidden" name="user" value="{{ pm_nm.id }}">
+                    {% elif dev_nm %}
+                        <input type="hidden" name="user_type" value="devnm">
+                        <input type="hidden" name="user" value="{{ dev_nm.id }}">
+                    {% elif tes_nm %}
+                        <input type="hidden" name="user_type" value="tesnm">
+                        <input type="hidden" name="user" value="{{ tes_nm.id }}">
+                    {% endif %}
+                  <div class="form-group">
+                    <label for="exampleTextarea1">Add Question</label>
+                    <textarea class="form-control" name="que" id="exampleTextarea1" rows="2"></textarea>
+                  </div>
+                  <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit">
+                </form>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock MainContent %}

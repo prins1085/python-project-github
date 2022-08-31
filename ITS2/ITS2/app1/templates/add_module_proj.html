@@ -1,0 +1,121 @@
+{% extends my_template %}
+{% load static %}
+
+{% block MainContent %}
+    
+<div class="container">
+    <br>
+    <br>
+
+    
+    {% if key %}
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Update Module</h4>
+                    <form class="forms-sample" method="POST"> 
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="exampleInputName1">Project Name</label>
+                            <input type="text" class="form-control" id="exampleInputName1" name="pname" value="{{ key.pd_id.Project_Name }}" disabled placeholder="Enter Name">
+                            <input type="hidden" name="PROJ" value="{{ proj.id }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Module Name</label>
+                            <input type="text" class="form-control" id="exampleInputName1" name="mname" value="{{ key.Module_Name }}" placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail3">Module Details</label>
+                            <textarea class="form-control" id="exampleTextarea1" name="mdetail" rows="2">{{ key.Module_Detail }}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Progress</label>
+                            <input type="number" class="form-control" id="exampleInputName1" name="progress" value="{{ key.Progress }}" placeholder="Progress">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Project Developer</label>
+                            
+                            <select class="form-control form-control-lg" name="Devs" id="exampleFormControlSelect1">
+                                {% for d in dev %}
+                                    <option value="{{ d.id }}" {% if key.developer == d %}
+                                    selected
+                                    {% endif %}>{{ d.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect2">Project Tester</label>
+                            
+                            <select class="form-control" name='Tess' id="exampleFormControlSelect2">
+                                {% for t in test %}
+                                    <option value="{{ t.id }}" {% if t == key.tester %}
+                                    selected
+                                    {% endif %}> {{ t.Name }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit"><br>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>    
+    {% else %}
+        <div class="row">
+            <div class="col-md-6 grid-margin stretch-card">
+                <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Add Module</h4>
+                    <form class="forms-sample" method="POST"> 
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="exampleInputName1">Project Name</label>
+                            <input type="text" class="form-control" id="exampleInputName1" name="pname" value="{{ proj.Project_Name }}" disabled placeholder="Enter Name">
+                            <input type="hidden" name="PROJ" value="{{ proj.id }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Module Name</label>
+                            <input type="text" class="form-control" id="exampleInputName1" name="mname" placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail3">Module Details</label>
+                            <textarea class="form-control" id="exampleTextarea1" name="mdetail" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputName1">Progress</label>
+                            <input type="number" class="form-control" id="exampleInputName1" name="progress" value="{{ key.Project_Modules_need }}" placeholder="Progress">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Project Developer</label>
+                            <input type="hidden" name='Devs' value="{{ proj.dev_id.id }}">
+                            <select class="form-control form-control-lg" id="exampleFormControlSelect1" disabled>
+                                {% for d in dev %}
+                                    <option value="{{ d.id }}" {% if proj.dev_id == d %}
+                                    selected
+                                    {% endif %}>{{ d.Name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect2">Project Tester</label>
+                            <input type="hidden" name='Tess' value="{{ proj.tset_id.id }}">
+                            <select class="form-control" name='Tess' id="exampleFormControlSelect2" disabled>
+                                {% for t in test %}
+                                    <option value="{{ t.id }}" {% if t == proj.tset_id %}
+                                    selected
+                                    {% endif %}> {{ t.Name }} </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    <input type="Submit" class="btn btn-success mr-2" value="Submit" name="Submit"><br>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+        
+
+</div>
+{% endblock MainContent %}

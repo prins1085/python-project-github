@@ -1,0 +1,108 @@
+{% extends my_template %}
+{% load static %}
+
+{% block MainContent %}
+
+{% load checker %}
+
+{% for i in pdata reversed %}
+    {% if i|check_data_pm %}
+        <body onload="myFunction()">
+    {% endif %}
+{% endfor %}
+
+<div class="container">
+    <br>
+    <br>
+    <h1> Allocated Projects </h1>
+    <table class="table">
+        <thead class="thead-dark">
+            <th>No.</th>
+            <th>Project Name</th>
+            <th>Project Details</th>
+            <th>Project Developer</th>
+            <th>Project Tester</th>
+            <th>Project Modules</th>
+            <th>Project Progress</th>
+            
+        </thead>
+        <tbody>
+            {% for i in pdata reversed %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ i.Project_Name }}</td>
+                    <td> <textarea disabled style="height: 100px; width: 250px;">{{ i.Project_Detail }}</textarea></div></td>
+                    <td>{{ i.dev_id }}</td>
+                    <td>{{ i.tset_id }}</td>
+                    <td>{{ i.Project_Modules_need }}</td>
+                    <td>{{ i.Project_Progress }}</td>
+                        {% if i.project_request != True %}
+                            <script>
+                                function myFunction() {
+                                    var txt;
+                                    if (confirm("New Project Assign to You!")) {
+                                        txt = "You pressed OK!";
+                                        {{ i|change_data_pm }}
+                                    } else {
+                                        txt = "You pressed Cancel!";
+                                    }
+                                }
+                            </script>
+                        {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <h1> Allocated Project Modules </h1>
+    
+    {% if mdata %}
+        {% for i in mdata reversed %}
+
+        <div class="row">
+            <div class="card col" style="width: 18rem;">
+                <div class="card-body">
+                    <p style="text-align: right;">{{ i.Date }}</p>
+                    <h3>{{ i.pd_id.Project_Name }}</h3>
+                    <p class="card-text">{{ i.pd_id.Project_Detail }}</p>
+                    <h4><b>{{ i.Module_Name }}</b></h4>
+                    <h4 class="card-text">{{ i.Module_Detail }}</h4>
+                    progress : 
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" role="progressbar"
+                            aria-valuenow="{{ i.Progress }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ i.Progress }}%">
+                        </div>
+                    </div>
+                    <hr>
+                    <div style="text-align: right;">
+                        <a href="{% url 'update_module_proj' i.id %}" class="btn btn-info">Update</a> &nbsp; <a href="{% url 'delete_module_proj' i.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        {% endfor %} 
+    {% else %}
+        <h2>No Modules</h2>
+    {% endif %}
+        
+    
+    <br>
+    <!-- <form method="POST">
+        {% csrf_token %}
+        Project Name:
+        <input type="text" name="name" required><br>
+        Project Details:
+        <input type="text" name="detail" required><br>
+
+        <input type="submit" name="submit" value="sent">
+    </form> -->
+
+    <br>
+    
+
+</div>
+{% endblock MainContent %}
